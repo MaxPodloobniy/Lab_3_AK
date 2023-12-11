@@ -23,12 +23,18 @@ static LIST_HEAD(my_list);
 
 static int __init my_init(void)
 {
+
     if (myCounter > 10) {
         printk(KERN_WARNING "Error, parameter is bigger than 10)\n");
         return -EINVAL;
+    } else if (myCounter >= 5 && myCounter <= 10) {
+    	printk(KERN_WARNING "Parameter is between 5 and 10\n");
+    } else if (myCounter == 0){
+    	printk(KERN_WARNING "Parameter is 0\n");
     }
 
     int i;
+
     for (i = 0; i < myCounter; i++) {
         struct my_data *data = NULL;
 
@@ -36,7 +42,7 @@ static int __init my_init(void)
         data->timestamp = ktime_get();
         list_add_tail(&data->entry, &my_list);
 
-        printk(KERN_INFO "\nHello, world!");
+        printk(KERN_INFO "Hello, world!\n");
     }
 
     return 0;
